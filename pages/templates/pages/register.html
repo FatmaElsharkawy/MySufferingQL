@@ -6,9 +6,37 @@ Register Page
 {% endblock %}
 
 {% block css_style  %}
-<link rel="stylesheet" href="{% static "register.css" %}">
+<link rel="stylesheet" href="{% static "pages/register.css" %}">
 {% endblock %}
 
-{% block content  %}
-<h1>Hello!</h1>
+{% block content %}
+
+<section>
+  <div class="box">
+    <h1> Hello to Registration Page! </h1>
+  </div>
+</section>
+
+
+<section>
+<div class="textbox">
+    <label for="name">Enter Your Name:</label>
+    <input name="name" type="text" id="name" placeholder="Name"> <br>
+    <label for="email">Enter Your Email:</label>
+    <input name="email" type="email" id="email" placeholder="Email"> <br>
+    <label for="password">Enter your Password:</label>
+    <input name="password" type="password" id="password" placeholder="Password"> <br>
+</div>
+
+<div class="button-container">
+    <button id="submit-button">Submit</button>
+</div>
+</section>
+
+<div class="smalltext">
+  <p>
+    <a href=" {% url "login-page" %}"> Already have an account? </a>
+  </p>
+
+</div>
 {% endblock %}
