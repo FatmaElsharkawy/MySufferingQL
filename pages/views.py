@@ -4,4 +4,4 @@ from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 # Create your views here.
 
 def index(request):
-    return HttpResponse(''' <h1> Hello to our mySufferingQL Page </h1>''' )
+    return render(request, "pages/register.html")
