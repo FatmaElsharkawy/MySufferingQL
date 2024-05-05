@@ -5,13 +5,13 @@
     <link rel="stylesheet" href="pages\static\pages\login.css">
     <title>Login Page</title>
 </head>
-<div class="card mx-auto mt-2 col-sm-6" style="width: 25rem;">
-    <a href="Homepage.php"><img src="Photos/Logo.jpg" class="card-img-top" alt="Beta Academy Logo"></a>
+<div class="card mx-auto mt-4 col-sm-6" style="width: 25rem;">
+    <div class ="containter d-flex justify-content-center"<a href="Homepage.php"><img src="static\team-logo.jpeg" class="card-img-top mx-auto" alt="Team Logo" style="width:70%"></a></div>
     <div class="card-body">
         <h2 class="text-center"><strong>Welcome<br>Back!</strong></h2>
-        <br>
+        {% comment %} <br>
         <h5 class="card-title">LOGIN</h5>
-        <br>
+        <br> {% endcomment %}
         <form action="login-server.php" method="post">
         <div class="input-group mb-3">
             <input type="text" class="form-control" name="email" placeholder="Email" aria-label="Email" aria-describedby="basic-addon1">
@@ -20,7 +20,7 @@
             <input type="password" class="form-control" name="pass" placeholder="Password" aria-label="Username" aria-describedby="basic-addon1">
         </div>
 <!--        <a href="#" class="btn btn-vintage d-block mx-auto">LOGIN</a>-->
-            <input type="submit" class="btn btn-primary d-block mx-auto" style="width:100%;" value="LOGIN">
+            <input type="submit" class="btn btn-success d-block mx-auto" style="width:100%;" value="LOGIN">
         </form>
         <h6 class="mt-1">Don't have an account? <a href="Signup.html">Sign Up Now!</a></h6>
     </div>
