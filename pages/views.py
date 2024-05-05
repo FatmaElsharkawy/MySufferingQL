@@ -18,4 +18,4 @@ def index(request):
     return render(request, "pages/register.html")
 
 def login(request):
-    pass
+    return render(request, "pages/login.html")
