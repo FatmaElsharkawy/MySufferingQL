@@ -53,5 +53,3 @@ def authenticate_user(request):
                                             <h1 style='color:rgb(200,0,0)'>This user does not exist.<br>
                                             Please check your email or sign up for a new account.</h1>
                                             </div>""")
-
-
