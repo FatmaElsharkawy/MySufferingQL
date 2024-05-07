@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<div class="navbar">
+    <div class="title">
+      <h1> <font size="7"><center>Profile<center></font> </h1>
+    </div>
+  </div>
+<link rel="stylesheet"  href="{% static '../static/pages/profile.css' %}">
+
+{% include 'pages/sidenav.html' %}
+{% include 'pages/middle.html' %}
+{% include 'pages/left.html' %}
+
+{% endblock %}
