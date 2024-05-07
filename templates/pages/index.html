@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block page %}
+
+ <img src="{% static 'images/2.jpg'%}" >
+{% if name == 'laila' %}
+   <p> <font color="yellow"> hello laila </font></p>
+{% elif name == 'salma' %}
+   <p> <font color="white">hello salma </font></p>
+{% else %} 
+   <p> <font color="yellow"> not found </font></p>
+{% endif %}   
+
+ <font color="blue">
+  <h1>index</h1>
+  <h4> name = {{name}}</h4>
+  name = {{name | slice:':7'}}<br>
+  name = {{name|length}}<br>
+  name= {{name|add:' elhosiny'}}<br>
+  name = {{name|cut:' '}}
+  <h1> age = {{age|filesizeformat}}</h1> </font>
+{% endblock page %}
+  

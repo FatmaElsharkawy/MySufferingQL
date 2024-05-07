@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+{% include 'parts/navbar.html' %}
+<link rel="stylesheet"  href="{% static 'css/navbar.css' %}">
+{% include 'parts/sidenav.html' %}
+<link rel="stylesheet"  href="{% static 'css/sidenav.css' %}">
+{% include 'parts/middle.html' %}
+<link rel="stylesheet" href="{% static 'css/middle.css' %}">
+{% include 'parts/left.html' %}
+<link rel="stylesheet" href="{% static 'css/lest.css' %}">
+{% endblock %}

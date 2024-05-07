@@ -1,0 +1,12 @@
+.navbar{
+  background-color: #fff;
+  color: #333;
+  box-shadow: 0px 4px 8px 0px grey;
+  height: 70px;
+}
+.title {
+  font-family: 'Dancing Script';
+  
+  position: absolute;
+  right: 45%;
+}

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block page %}
+
+{% load static %}
+<link rel="stylesheet"  href="{% static 'css/style.css' %}">
+
+{% for x in name %}
+  <font color="yellow">{{x}}</font>
+{% endfor %}
+
+ <font color="blue">
+  <h1>about</h1>
+  <h4> name = {{name}}</h4>
+  name = {{name | slice:':7'}}<br>
+  name = {{name|length}}<br>
+  name= {{name|add:' elhosiny'}}<br>
+  name = {{name|cut:' '}}
+  <h1> age = {{age|filesizeformat}}</h1> </font>
+{% endblock page %}

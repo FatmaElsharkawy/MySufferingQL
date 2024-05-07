@@ -1,15 +1,4 @@
 {% load static %}
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-
-    <title>{% block page_title %} {% endblock %}</title>
-    {% block css_style %} {% endblock %}
-    <link rel="stylesheet" href="{% static "base_style.css" %}">
-
-  </head>
-  <body>
-    {% block content %} {% endblock %}
-  </body>
-</html>
+<link rel="stylesheet"  href="{% static 'css/prof.css' %}">
+{% block content %}
+{% endblock content %}
