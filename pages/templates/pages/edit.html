@@ -1,0 +1,27 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <form id="editForm" method="post" action="{% url 'edit' %}">
+            {% csrf_token %}
+            <label for="fb">Facebook:</label>
+            <input type="text" id="fb" name="fb"><br>
+            <label for="ins">Instagram:</label>
+            <input type="text" id="ins" name="ins"><br>
+            <label for="ln">LinkedIn:</label>
+            <input type="text" id="you" name="you"><br>
+            <label for="git">GitHub:</label>
+            <input type="text" id="git" name="git"><br>
+            <button type="submit">Save</button>
+          </form>
+    </div>
+
+</body>
+</html>

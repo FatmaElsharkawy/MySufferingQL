@@ -1,0 +1,23 @@
+{% load static %}
+<div class="final">
+  <h4>Social Media Accounts:</h4>
+  <a href="{% url 'edit' %}">
+      <button class="bfinal" type="button"> Edit </button>
+  </a>
+  <div class="sma">
+      <img src="{% static '../static/pages/images/fb.jpeg' %}" width="20" height="20">
+      <label>{{fb | default:'Facebook'}}</label>
+  </div>
+  <div class="sma">
+      <img src="{% static '../static/pages/images/ins.jpeg' %}" width="20" height="20">
+      <label>{{ins | default:'Instagram'}}</label>
+  </div>
+  <div class="sma">
+      <img src="{% static '../static/pages/images/in.jpeg' %}" width="20" height="20">
+      <label>{{ln | default:'LinkedIn'}}</label>
+  </div>
+  <div class="sma">
+      <img src="{% static '../static/pages/images/git.jpeg' %}" width="20" height="20">
+      <label>{{git | default:'GitHub'}}</label>
+  </div> 
+</div>

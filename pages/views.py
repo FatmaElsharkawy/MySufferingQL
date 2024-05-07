@@ -16,16 +16,16 @@ def index(request):
         raw_password_2 = request.POST.get('confirm-password')
         gender = request.POST.get('gender')
 
-        if confirm_password(raw_password,raw_password_2):
+        if raw_password == raw_password_2:
             password= make_password('raw_password')
             with connection.cursor() as cursor:
                     cursor.execute("""
                         INSERT INTO "profile" (Fname,Lname, Email, passward, address, phone, gender)
                         VALUES (%s, %s, %s,%s, %s, %s, %s);
                     """, [first_name, last_name, email, password, address, phone_number, gender])
-            return HttpResponse('''<h1> Successfully Registered </h1>''')
+            return HttpResponse('''<h1 style="align-text:center; color:rgb(0,255,0);"> Successfully Registered </h1>''')
         else:
-            return HttpResponse('''<h1> Password is incorrect </h1>''')
+            return HttpResponse('''Password is incorrect.''')
     return render(request, "pages/register.html")
 
 def login(request):
@@ -38,21 +38,25 @@ def authenticate_user(request):
 
         # Execute the raw SQL query to fetch the user by email
         with connection.cursor() as cursor:
-            cursor.execute("SELECT * FROM users WHERE email = %s", [email])
+            cursor.execute("SELECT * FROM profile WHERE email = %s", [email])
             user = cursor.fetchone()
 
         if user:
-            # user[8] is the index of the password field
-            hashed_password = user[8] #change it so the 8 is not hardcoded
+            # user[5] is the index of the password field
+            hashed_password = user[4] #change it so the 5 is not hardcoded
 
             # Use Django's check_password method to compare the passwords
-            if check_password(password, hashed_password):
+            if password == hashed_password:
+            #if check_password(password, hashed_password):
                 # Password is correct, return the user object
-                return HttpResponse('Welcome Back')
+                return render(request, 'pages/profile.html')
             else:
                 # Password is incorrect
                 # context = {"error" : "The password you entered is incorrect."}
                 # return render(request, "../login.html", context)
+
+                # return HttpResponse(f"{email}+{password}+{hashed_password}")
+
                 return HttpResponse("""    <div>
                                             <h1 style='color:rgb(200,0,0)'>The password you entered is incorrect.</h1>
                                             </div>""")
@@ -63,9 +67,28 @@ def authenticate_user(request):
                                             Please check your email or sign up for a new account.</h1>
                                             </div>""")
 
-def confirm_password(raw_password,raw_password_2):
-    if raw_password is raw_password_2:
-        return True
-    else:
-        return False
+# def confirm_password(raw_password,raw_password_2):
+#     if raw_password is raw_password_2:
+#         return True
+#     else:
+#         return False
 
+####PROFILE####
+
+# Create your views here.
+
+x= {'name':'laila khaled mohamed', 'age':123456789}
+
+def profile(request):
+  return render(request, 'pages/profile.html') 
+def edit(request):
+    if request.method == 'POST':
+        fb = request.POST.get('fb', '')
+        ins = request.POST.get('ins', '')
+        ln = request.POST.get('ln', '')
+        git = request.POST.get('git','')
+        with connection.cursor() as cursor:
+            cursor.execute("""INSERT INTO accounts(facebook, github, instagram, linkedin)
+                           VALUES(%s, %s, %s, %s)""",[fb, git, ins, ln])
+        return redirect('profile')
+    return render(request, 'pages/edit.html')
