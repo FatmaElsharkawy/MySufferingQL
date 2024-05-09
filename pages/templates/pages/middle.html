@@ -1,10 +1,16 @@
 <div class="container">
+    <a href="{% url 'editinfo' %}">
+        <input type="button">Edit Info</input>
+    </a>
+    <a href="{% url 'login-page' %}">
+        <input type="button">Log out</input>
+    </a>
     <div class="profile-info">
         <h2 class="profi"><i>User Info</i></h2>
-        <p>User Name: John Doe</p>
-        <p>Email: johndoe@example.com</p>
-        <p>Phone Number: 123-456-7890</p>
-        <p>Address: 123 Main St, City</p>
+        <p>User Name: {{loginfo.1}} {{loginfo.2}}</p>
+        <p>Email: {{loginfo.3}}</p>
+        <p>Phone Number: {{loginfo.7}}</p>
+        <p>Address: {{loginfo.6}}</p>
     </div>
     <div class="tabs">
         <div class="tab" onclick="showTab('activity')">Activity</div>
@@ -14,7 +20,6 @@
     <div id="activity" class="tab-content">
         <h2>Activity</h2>
         <p class="activity-item">User commented on a post on March 1st, 2022</p>
-        
         <p class="activity-item">User liked a photo on March 3rd, 2022</p>
         <p class="activity-item">User shared a link on March 5th, 2022</p>
         <p class="activity-item">User commented on a post on March 1st, 2022</p>
