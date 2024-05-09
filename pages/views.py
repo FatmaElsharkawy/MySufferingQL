@@ -71,7 +71,7 @@ def authenticate_user(request):
             if password == hashed_password:
                 # Password is correct, return the user object
                 request.session['id'] = id
-                return render(request, 'pages/profile.html', {'loginfo':user})
+                return redirect('profile')
             else:
                 # Password is incorrect
                 error_message = "The password you entered is incorrect."
