@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="accordion mt-4 ms-4" style="width:50%;" id="accordionExample">
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            User Info
+          </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+            <p>User Name: {{user.1}} {{user.2}}</p>
+            <p>Email: {{user.3}}</p>
+            <p>Phone Number: {{user.7}}</p>
+            <p>Address: {{user.6}}</p>
+          </div>
+        </div>
+      </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+          Activity
+        </button>
+      </h2>
+      <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+            <p class="activity-item">User commented on a post on March 1st, 2022</p>
+            <p class="activity-item">User liked a photo on March 3rd, 2022</p>
+            <p class="activity-item">User shared a link on March 5th, 2022</p>
+            <p class="activity-item">User commented on a post on March 1st, 2022</p>
+            <p class="activity-item">User liked a photo on March 3rd, 2022</p>
+            <p class="activity-item">User shared a link on March 5th, 2022</p>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          Chat
+        </button>
+      </h2>
+      <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+            <p class="chat-item" onclick="showChat(1)">Meram</p>
+            <p class="chat-item" onclick="showChat(2)">Nouran</p>
+            <p class="chat-item" onclick="showChat(3)">Laila</p>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+          Friends
+        </button>
+      </h2>
+      <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+            <p>Meram</p>
+            <p>Laila</p>
+            <p>Fatma</p>
+            <p>Nada</p>
+            <p>Nouran</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% endblock %}

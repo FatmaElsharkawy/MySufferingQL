@@ -1,32 +1,23 @@
+{% extends 'base.html' %}
 {% load static %}
-<div class="sidenav">
-  <div class="profile">
-    <div class="name">
-      Laila Khaled
+{% block content %}
+
+<div class="card mt-4 ms-4" style="width: 18rem;">
+    <img src="{% static '../static/pages/images/2.jpg' %}" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">{{user.1}} {{user.2}}</h5>
+      <p style='text-align: center; font-weight:bold;'>Admin</p>
+      <p class="card-text">Member since May, 2024</p>
     </div>
-    <img src="{% static '../static/pages/images/2.jpg' %}" alt="" width="150" height="150">
-    <div class="admin">
-      Admin
-    </div>
-    <div class="joindate">
-      Member since: May 2024
-    </div>
-    <div class="info">
-      <div class="order">
-          <img src="{% static '../static/pages/images/order.png' %}" width="20" height="20">
-          <p class="o"><font size="2">Orders : <font color="blue">42</font></font></p>
-      </div>
-      <div class="posts">
-          <img src="{% static '../static/pages/images/posts.jpg' %}" width="20" height="20">
-          <p class="p"><font size="2">Posts : <font color="blue">42</font></font></p>
-      </div>
-      <div class="tasks">
-          <img src="{% static '../static/pages/images/tasks.jpg' %}" width="20" height="20">
-          <p class="t"><font size="2">Tasks done : <font color="blue">42</font></font></p>
-      </div>
-    </div>
-    <div class="message">
-      <button class="send"><font size="4"><center> Send Message </font></center></button>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">Orders: 42</li>
+      <li class="list-group-item">Posts: 30</li>
+      <li class="list-group-item">Tasks Done: 15</li>
+    </ul>
+    <div class="card-body">
+      <button class="btn btn-primary d-block">Send Message</button>
+
     </div>
   </div>
-</div>
+
+{%endblock%}

@@ -150,13 +150,13 @@ body {
     border-radius: 3px;
     box-shadow: 0px 0px 5px 1px grey;
   }
-.info{
+/* .info{
     box-shadow: -9px 0px 5px 1px grey;
     width: 250px;
     height: 110px;
     margin-top: 20px;
     border: #5d5757;
-  }
+  } */
 .order{
     width: 250px;
     margin-top: 20px;
@@ -212,4 +212,9 @@ body {
     cursor: pointer;
     background-color: rgb(117, 132, 122);
   }
-  
+
+  /* IS USED!!!!!!!!!!!!!!!!
+.resize-image {
+    width: 100px;
+    height: 100px;
+} */
