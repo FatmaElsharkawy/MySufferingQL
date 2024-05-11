@@ -27,14 +27,14 @@ h1{
 {% block content %}
 <div class="card mb-3" style="max-width: 100%; width: 100%; height: 100vh;">
   <div class="row g-0">
-    <div class="col-md-4">
-      <img src="static\team-logo.png" class="img-fluid rounded-start" alt="Team Logo">
+    <div class="col-md-4 d-flex align-items-center">
+      <img src="{% static 'images/team-logo.png'%}" class="img-fluid rounded-start" alt="Team Logo">
     </div>
     <div class="col-md-8">
       <div class="card-body">
         <h1 class="card-title">Welcome To Registeration Page</h1>
 
-        <form action="/" method="POST">
+        <form action="/" method="POST" enctype='multipart/form-data'>
             {%csrf_token%}
     <div class="custom-row mb-3">
             <input type="text" class="form-control" name="email" placeholder="Email" aria-label="Email" aria-describedby="basic-addon1" required>
@@ -76,7 +76,10 @@ h1{
      </div>
    </div>
  </fieldset>
-
+ <div class="mb-3">
+  <label for="formFile" class="form-label">Choose a Profile Image</label>
+  <input class="form-control" type="file" id="formFile" name="img">
+</div>
   <input type="submit" class="btn btn-success d-block mx-auto" style="width:100%;" value="Register">
         </form>
         <h6 class="mt-2">Already have an account? <a href="{% url "login-page" %}">Login Now!</a></h6>

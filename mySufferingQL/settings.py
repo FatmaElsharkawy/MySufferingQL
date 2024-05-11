@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import os
 from os import getenv
 from dotenv import load_dotenv
 load_dotenv()
@@ -140,3 +141,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #Redirecting (added manually)
 LOGIN_REDIRECT_URL ='/'
 LOGOUT_REDIRECT_URL ='/'
+
+MEDIA_ROOT = BASE_DIR / 'media'
+
+MEDIA_URL = '/media/'

@@ -8,7 +8,7 @@ Login Page
 {% block content %}
 
 <div class="card mx-auto mt-4 col-sm-6" style="width: 35rem;">
-    <div class ="containter d-flex justify-content-center"<a href="Homepage.php"><img src="static\team-logo.png" class="card-img-top mx-auto" alt="Team Logo" style="width:80%"></a></div>
+    <div class ="containter d-flex justify-content-center"<a href="Homepage.php"><img src="{% static 'images/team-logo.png' %}" class="card-img-top mx-auto" alt="Team Logo" style="width:80%"></a></div>
     <div class="card-body">
         <h2 class="text-center" style="color:rgb(21, 115, 71)"><strong>Welcome Back!</strong></h2><br>
         <form action="{% url 'authenticate_user' %}" method="post">
