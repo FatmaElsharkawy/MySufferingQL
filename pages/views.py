@@ -59,6 +59,9 @@ def login(request):
     return render(request, "pages/login.html")
 
 def authenticate_user(request):
+    # Clearing session and cookies
+    request.session.flush()
+    request.session.modified = True
     if request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('password')
@@ -77,18 +80,16 @@ def authenticate_user(request):
             if check_password(password, hashed_password):
                 # Password is correct, return the user object
                 #return HttpResponse(user[8])
-                encoded_path = user[8].tobytes()
-                img_path= encoded_path.decode('utf-8')
+                # encoded_path = user[8].tobytes()
+                # img_path= encoded_path.decode('utf-8')
 
                 #request.session['email'] = email
                 # redirect_path= reverse('profile',args=[user[0]])
                 # return HttpResponseRedirect(redirect_path)
-                request.session['id']=user[0]
+                request.session['id']=[user[0]]
                 return redirect('profile')
             else:
-
                 # return HttpResponse(f"{email}+{password}+{hashed_password}")
-
                 return HttpResponse("""    <div>
                                             <h1 style='color:rgb(200,0,0)'>The password you entered is incorrect.</h1>
                                             </div>""")
@@ -99,9 +100,9 @@ def authenticate_user(request):
                                             Please check your email or sign up for a new account.</h1>
                                             </div>""")
 
-def login_success(request,email):
+# def login_success(request,email):
     
-    return redirect(request, 'pages/profile.html', {'loginfo':user}) 
+#     return redirect(request, 'pages/profile.html', {'loginfo':user}) 
 
 # def login_success(request):
 #     user_record = request.session.get('user_record')
@@ -112,12 +113,8 @@ def login_success(request,email):
 
 ####PROFILE####
 
-# Create your views here.
-
-x= {'name':'laila khaled mohamed', 'age':123456789}
-
 def profile(request):
-    user_id = request.session.get('id')
+    user_id = request.session.get('id')[0]
     if user_id:
         with connection.cursor() as cursor:
             cursor.execute("SELECT * FROM useraccount WHERE id = %s", [user_id])
@@ -132,7 +129,7 @@ def profile(request):
 
 # Editing user accounts
 def edit(request):
-    id = request.session.get('id')
+    id = request.session.get('id')[0]
     if id:
         if request.method == 'POST':
             fb = request.POST.get('fb')
@@ -164,7 +161,7 @@ def edit(request):
 
 # Editing user info
 def editinfo(request):
-    id = request.session.get('id')
+    id = request.session.get('id')[0]
     if id:
         if request.method == 'POST':
             first = request.POST.get('first')
@@ -172,7 +169,6 @@ def editinfo(request):
             email = request.POST.get('email')
             phone = request.POST.get('phone')
             add = request.POST.get('add')
-
             with connection.cursor() as cursor:
                 cursor.execute("""UPDATE useraccount
                                 SET fname = %s, lname = %s, email = %s, phone = %s, address = %s
