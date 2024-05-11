@@ -1,23 +1,26 @@
+{% extends 'base.html' %}
 {% load static %}
-<div class="final">
-  <h4>Social Media Accounts:</h4>
-  <a href="{% url 'edit' %}">
-      <button class="bfinal" type="button"> Edit </button>
-  </a>
-  <div class="sma">
-      <img src="{% static '../static/pages/images/fb.jpeg' %}" width="20" height="20">
-      <label>{{acc.1 | default:'Facebook'}}</label>
-  </div>
-  <div class="sma">
-      <img src="{% static '../static/pages/images/ins.jpeg' %}" width="20" height="20">
-      <label>{{acc.2 | default:'Instagram'}}</label>
-  </div>
-  <div class="sma">
-      <img src="{% static '../static/pages/images/in.jpeg' %}" width="20" height="20">
-      <label>{{acc.3 | default:'LinkedIn'}}</label>
-  </div>
-  <div class="sma">
-      <img src="{% static '../static/pages/images/git.jpeg' %}" width="20" height="20">
-      <label>{{acc.4 | default:'GitHub'}}</label>
-  </div> 
+{% block content %}
+
+<div class="card mt-4 mx-3" style="width: 18rem;">
+    <img src="/media/{{ img_path }}" class="card-img-top" alt="Profile Image">
+    
+    <div class="card-body">
+        <h5 class="card-title">{{loginfo.1}} {{loginfo.2}}</h5>
+        <p style='text-align: center; font-weight:bold;'>Admin</p>
+        <p class="card-text">Member since May, 2024</p>
+    </div>
+
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">🚚 Orders: 40</li>
+      <li class="list-group-item">🗯️ Posts: 30</li>
+      <li class="list-group-item">📋 Tasks Done: 15</li>
+    </ul>
+
+    <div class="card-body">
+      <button class="btn btn-primary">Send Message</button>
+    </div>
+
 </div>
+
+{% endblock %}
