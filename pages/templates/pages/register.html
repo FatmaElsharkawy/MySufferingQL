@@ -32,8 +32,13 @@ h1{
     </div>
     <div class="col-md-8">
       <div class="card-body">
+        {% if exist %}
+        <h1 class="card-title">{{exist}}</h1>
+        {% elif match %}
+        <h1 class="card-title">{{match}}</h1>
+        {% else %}
         <h1 class="card-title">Welcome To Registeration Page</h1>
-
+        {% endif %} 
         <form action="/" method="POST" enctype='multipart/form-data'>
             {%csrf_token%}
     <div class="custom-row mb-3">

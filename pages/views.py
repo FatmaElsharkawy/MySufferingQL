@@ -35,7 +35,9 @@ def index(request):
            cursor.execute("SELECT Email FROM useraccount WHERE Email = %s", [email])
            email_db = cursor.fetchone()
            if email_db:
-                return HttpResponse('''<h1 style="align-text:center; color:rgb(255,0,0);"> Email already exists! Login! </h1>''')
+                exist = "Email already exists!"
+                return render(request, "pages/register.html", {'exist': exist})
+                # return HttpResponse('''<h1 style="align-text:center; color:rgb(255,0,0);"> Email already exists! Login! </h1>''')
         if raw_password == raw_password_2:
             password= make_password(raw_password)
             with connection.cursor() as cursor:
@@ -52,7 +54,9 @@ def index(request):
             request.session['id']=id
             return redirect('profile')
         else:
-            return HttpResponse('''Password is incorrect.''')
+            notmatch = "Passwords didn't match!"
+            return render(request, "pages/register.html", {'match': notmatch})
+            # return HttpResponse('''Password is incorrect.''')
     return render(request, "pages/register.html")
 
 def login(request):
@@ -90,15 +94,22 @@ def authenticate_user(request):
                 return redirect('profile')
             else:
                 # return HttpResponse(f"{email}+{password}+{hashed_password}")
-                return HttpResponse("""    <div>
-                                            <h1 style='color:rgb(200,0,0)'>The password you entered is incorrect.</h1>
-                                            </div>""")
+                # return HttpResponse("""    <div>
+                #                             <h1 style='color:rgb(200,0,0)'>The password you entered is incorrect.</h1>
+                #                             </div>""")
+                wrong_pass = "Wrong Password"
+                redirect('login-page')
+                return render(request, "pages/login.html",{'wrong': wrong_pass})
+
         else:
-            # No user found with the provided email
-            return HttpResponse("""    <div>
-                                            <h1 style='color:rgb(200,0,0)'>This user does not exist.<br>
-                                            Please check your email or sign up for a new account.</h1>
-                                            </div>""")
+            # # No user found with the provided email
+            # return HttpResponse("""    <div>
+            #                                 <h1 style='color:rgb(200,0,0)'>This user does not exist.<br>
+            #                                 Please check your email or sign up for a new account.</h1>
+            #                                 </div>""")
+            wrong_email = "This user does not exist"
+            return render(request, "pages/login.html",{'wrong': wrong_email})
+
 
 # def login_success(request,email):
     
