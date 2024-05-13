@@ -9,6 +9,7 @@ from django.shortcuts import render
 from django.contrib.auth.hashers import make_password
 from django.core.files.storage import default_storage
 from django.db import connection
+from datetime import datetime
 
 
 # Create your views here.
@@ -35,7 +36,9 @@ def index(request):
            cursor.execute("SELECT Email FROM useraccount WHERE Email = %s", [email])
            email_db = cursor.fetchone()
            if email_db:
-                return HttpResponse('''<h1 style="align-text:center; color:rgb(255,0,0);"> Email already exists! Login! </h1>''')
+                exist = "Email already exists!"
+                return render(request, "pages/register.html", {'exist': exist})
+                # return HttpResponse('''<h1 style="align-text:center; color:rgb(255,0,0);"> Email already exists! Login! </h1>''')
         if raw_password == raw_password_2:
             password= make_password(raw_password)
             with connection.cursor() as cursor:
@@ -52,13 +55,18 @@ def index(request):
             request.session['id']=id
             return redirect('profile')
         else:
-            return HttpResponse('''Password is incorrect.''')
+            notmatch = "Passwords didn't match!"
+            return render(request, "pages/register.html", {'match': notmatch})
+            # return HttpResponse('''Password is incorrect.''')
     return render(request, "pages/register.html")
 
 def login(request):
     return render(request, "pages/login.html")
 
 def authenticate_user(request):
+    # Clearing session and cookies
+    request.session.flush()
+    request.session.modified = True
     if request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('password')
@@ -77,31 +85,36 @@ def authenticate_user(request):
             if check_password(password, hashed_password):
                 # Password is correct, return the user object
                 #return HttpResponse(user[8])
-                encoded_path = user[8].tobytes()
-                img_path= encoded_path.decode('utf-8')
+                # encoded_path = user[8].tobytes()
+                # img_path= encoded_path.decode('utf-8')
 
                 #request.session['email'] = email
                 # redirect_path= reverse('profile',args=[user[0]])
                 # return HttpResponseRedirect(redirect_path)
-                request.session['id']=user[0]
+                request.session['id']=[user[0]]
                 return redirect('profile')
             else:
-
                 # return HttpResponse(f"{email}+{password}+{hashed_password}")
+                # return HttpResponse("""    <div>
+                #                             <h1 style='color:rgb(200,0,0)'>The password you entered is incorrect.</h1>
+                #                             </div>""")
+                wrong_pass = "Wrong Password"
+                redirect('login-page')
+                return render(request, "pages/login.html",{'wrong': wrong_pass})
 
-                return HttpResponse("""    <div>
-                                            <h1 style='color:rgb(200,0,0)'>The password you entered is incorrect.</h1>
-                                            </div>""")
         else:
-            # No user found with the provided email
-            return HttpResponse("""    <div>
-                                            <h1 style='color:rgb(200,0,0)'>This user does not exist.<br>
-                                            Please check your email or sign up for a new account.</h1>
-                                            </div>""")
+            # # No user found with the provided email
+            # return HttpResponse("""    <div>
+            #                                 <h1 style='color:rgb(200,0,0)'>This user does not exist.<br>
+            #                                 Please check your email or sign up for a new account.</h1>
+            #                                 </div>""")
+            wrong_email = "This user does not exist"
+            return render(request, "pages/login.html",{'wrong': wrong_email})
 
-def login_success(request,email):
+
+# def login_success(request,email):
     
-    return redirect(request, 'pages/profile.html', {'loginfo':user}) 
+#     return redirect(request, 'pages/profile.html', {'loginfo':user}) 
 
 # def login_success(request):
 #     user_record = request.session.get('user_record')
@@ -112,12 +125,8 @@ def login_success(request,email):
 
 ####PROFILE####
 
-# Create your views here.
-
-x= {'name':'laila khaled mohamed', 'age':123456789}
-
 def profile(request):
-    user_id = request.session.get('id')
+    user_id = request.session.get('id')[0]
     if user_id:
         with connection.cursor() as cursor:
             cursor.execute("SELECT * FROM useraccount WHERE id = %s", [user_id])
@@ -126,13 +135,17 @@ def profile(request):
             accounts = cursor.fetchone()
             encoded_path = user[8].tobytes()
             img_path= encoded_path.decode('utf-8')
-        return render(request, 'pages/profile.html', {'loginfo':user,'img_path':img_path,'acc':accounts}) 
+            cursor.execute("SELECT date , post from posts WHERE user_id = %s", [user_id])
+            user_posts = cursor.fetchall()
+        #return HttpResponse(f"{user_posts[0]}")
+
+        return render(request, 'pages/profile.html', {'loginfo':user,'img_path':img_path,'acc':accounts, 'posts':user_posts}) 
     return HttpResponse("Email not found in session.")
 
 
 # Editing user accounts
 def edit(request):
-    id = request.session.get('id')
+    id = request.session.get('id')[0]
     if id:
         if request.method == 'POST':
             fb = request.POST.get('fb')
@@ -164,7 +177,7 @@ def edit(request):
 
 # Editing user info
 def editinfo(request):
-    id = request.session.get('id')
+    id = request.session.get('id')[0]
     if id:
         if request.method == 'POST':
             first = request.POST.get('first')
@@ -172,7 +185,6 @@ def editinfo(request):
             email = request.POST.get('email')
             phone = request.POST.get('phone')
             add = request.POST.get('add')
-
             with connection.cursor() as cursor:
                 cursor.execute("""UPDATE useraccount
                                 SET fname = %s, lname = %s, email = %s, phone = %s, address = %s
@@ -180,3 +192,35 @@ def editinfo(request):
             transaction.commit()
             return redirect('profile')
     return render(request, 'pages/editinfo.html')
+
+def add_post(request):
+    id = request.session.get('id')[0]
+    if id:
+        if request.method == "POST":
+            # return HttpResponse("Gowa el If")
+            post = request.POST.get('newpost')
+            date = datetime.now().date()
+            #return HttpResponse(date)
+            with connection.cursor() as cursor:
+                cursor.execute("""
+                            INSERT INTO posts (user_id, date, post)
+                        VALUES (%s, %s, %s);
+                        """ , [id, date, post])
+            return redirect('profile')
+    return render (request, 'pages/addpost.html')
+
+# def add_post_server(request):
+#     id = request.session.get('id')[0]
+#     if id:
+#         if request.method == "POST":
+#             # return HttpResponse("Gowa el If")
+#             post = request.POST.get('newpost')
+#             date = date(.today())
+#             with connection.cursor() as cursor:
+#                 cursor.execute("""
+#                             INSERT INTO posts (user_id, date, post)
+#                         VALUES (%s, %s, %s);
+#                         """ , [id, date, post])
+#             transaction.commit()
+#     return redirect('profile')
+

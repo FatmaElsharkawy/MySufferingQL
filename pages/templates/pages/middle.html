@@ -7,7 +7,8 @@
       <h2 class="accordion-header">
         <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" disabled>
           User Info 
-          {% comment %} <button class="btn btn-outline-success" type="submit"><a href="{% url 'editinfo' %}">Edit Info</a></button> {% endcomment %}
+          <button class="btn btn-primary m-3" type="submit"><a href="{% url 'editinfo' %}" style="text-decoration: none; color:white;" class='p-3'>Edit Info</a></button>
+          <button class="btn btn-primary m-3" type="submit"><a href="{% url 'add-post' %}" style="text-decoration: none; color:white;" class='p-3'>Add New Post</a></button>
         </button>
       </h2>
       <div id="collapseOne" class="show">
@@ -28,12 +29,18 @@
     </h2>
     <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
       <div class="accordion-body">
-          <p class="activity-item">User commented on a post on March 1st, 2022</p>
-          <p class="activity-item">User liked a photo on March 3rd, 2022</p>
+        {% comment %} {%for i in post%}
+          <p class="activity-item">{{post.i}} </p>
+        {%endfor%} {% endcomment %}
+        {% for post in posts %}
+      <p> <strong>Post:</strong> {{ post.1 }} || <strong>Date:</strong> {{ post.0 }}</p>
+        {% endfor %}
+
+          {% comment %} <p class="activity-item">User liked a photo on March 3rd, 2022</p>
           <p class="activity-item">User shared a link on March 5th, 2022</p>
           <p class="activity-item">User commented on a post on March 1st, 2022</p>
           <p class="activity-item">User liked a photo on March 3rd, 2022</p>
-          <p class="activity-item">User shared a link on March 5th, 2022</p>
+          <p class="activity-item">User shared a link on March 5th, 2022</p> {% endcomment %}
       </div>
     </div>
   </div>
